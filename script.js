@@ -1,15 +1,56 @@
-/* Генерация предсказания должна происходить при клике на кнопку «предсказать судьбу» */
 
-/* Заранее заготовь 3-5 предсказаний и в зависимости от того, как лягут карты судьбы (или что скажет Math.random) показывай их пользователю */
+const forecastBtn = document.querySelector('.forecast-btn');
+const currentForecast = document.querySelector('.current-forecast');
+const title = currentForecast.querySelector('h1');
+const forecastP = currentForecast.querySelector('p');
+const forecastTemplate = document.querySelector('#forecast-item');
+const forecasts = document.querySelector('.forecasts');
 
-/* Подставляй текст нового предсказания в .current-forecast h1 */
+forecastBtn.addEventListener('click', function() {
 
-/* Показывай процент вероятности, с которым предсказание сбудется — в верстке это .current-forecast p */
+    const generatedValue = generateRandomValue(0, 6);
+    
+    let forecastText = "";
 
-/* Данный процент также нужно генерировать автоматически, он может принимать значения от 0 до 100% */
+    if (generatedValue == 1) {
+        forecastText = "Получите хорошую новость";
+    } else if (generatedValue == 2){
+        forecastText = "Узнаете нечто новое об окружающих вас людях";
+    } else if (generatedValue == 3){
+        forecastText = "Ваш труд будет плодотворным";
+    } else if (generatedValue == 4){
+        forecastText = "Все неоконченные дела будут завершены";
+    }else if (generatedValue == 5){
+        forecastText = "Все желания сбудутся";
+    }
+    
+    title.textContent = forecastText;
+    
+    const percentValue = generateRandomValuePercent(0, 101);
 
-/* Совет: заведи функцию-хелпер, которая будет заниматься только генерацией данных в диапазоне от min до max и используй ее где нужно */
+    forecastP.textContent = `${percentValue}%`;
 
-/* При генерации нового предсказания старое предсказание должно добавляться в начало списка «Мои предсказания» — .forecasts  */
+    currentForecast = makeforecastTemplate(forecastText, percentValue);
+    forecasts.prepend(currentForecast);
+});
 
-/* Для добавления предсказания в список воспользуйся шаблоном forecast-item */
+function generateRandomValue(min, max) {
+    const generatedValue = Math.floor(Math.random() * (max - min)) + min; 
+    return generatedValue;
+  }
+  
+  function generateRandomValuePercent(min, max) {
+    const percentValue = Math.floor(Math.random() * (max - min)) + min; 
+    return percentValue;
+  }
+
+
+  function makeforecastTemplate( title, percent) {
+    const myForecast = forecastTemplate.content.cloneNode(true);
+    
+    myForecast.querySelector('h3').textContent = title;
+    myForecast.querySelector('p').textContent = `${percent}%`;
+
+    return myForecast;
+}
+
