@@ -12,16 +12,18 @@ forecastBtn.addEventListener('click', function() {
     
     let forecastText = "";
 
-    if (generatedValue == 1) {
+    if (generatedValue == 0){
         forecastText = "Получите хорошую новость";
-    } else if (generatedValue == 2){
+    } else if (generatedValue == 1){
         forecastText = "Узнаете нечто новое об окружающих вас людях";
-    } else if (generatedValue == 3){
+    } else if (generatedValue == 2){
         forecastText = "Ваш труд будет плодотворным";
-    } else if (generatedValue == 4){
+    } else if (generatedValue == 3){
         forecastText = "Все неоконченные дела будут завершены";
-    }else if (generatedValue == 5){
+    }else if (generatedValue == 4){
         forecastText = "Все желания сбудутся";
+    } else if (generatedValue == 5){
+        forecastText = "В 2024 году вы закроете ипотеку";
     }
     
     title.textContent = forecastText;
@@ -30,8 +32,8 @@ forecastBtn.addEventListener('click', function() {
 
     forecastP.textContent = `${percentValue}%`;
 
-    currentForecast = makeforecastTemplate(forecastText, percentValue);
-    forecasts.prepend(currentForecast);
+    const forecastResult = makeforecastTemplate(forecastText, percentValue);
+    forecasts.prepend(forecastResult);
 });
 
 function generateRandomValue(min, max) {
